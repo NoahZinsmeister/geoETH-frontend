@@ -11,6 +11,7 @@ import Message from './Message';
 import Marker from './Marker'
 import LocationMarker from './LocationMarker'
 import ScanSecret from './ScanSecret'
+import MakeClaim from './MakeClaim'
 
 import dotenv from 'dotenv'
 dotenv.config()
@@ -24,6 +25,10 @@ const styles = theme => ({
     color: 'green'
   }
 })
+
+// 0x383209643DcfE48561456Ca4ad801BB1F1493191
+// lat: -90, 90
+// lng: -180, 180
 
 class Journey extends Component {
   constructor(props) {
@@ -189,6 +194,11 @@ class Journey extends Component {
               })}
             </List>
           </Fragment> :
+          undefined
+        }
+
+        {remainingSecrets === 0 ?
+          <MakeClaim address={this.props.address} secrets={this.state.currentSecrets} /> :
           undefined
         }
 
