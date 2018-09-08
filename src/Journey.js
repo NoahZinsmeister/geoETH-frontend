@@ -7,6 +7,7 @@ import { Check as CheckIcon } from '@material-ui/icons';
 import GoogleMapReact from 'google-map-react'
 import Geolocation from 'react-geolocation';
 
+import Message from './Message';
 import Marker from './Marker'
 import LocationMarker from './LocationMarker'
 
@@ -172,6 +173,8 @@ class Journey extends Component {
             )
           })}
         </List>
+        <Message></Message>
+
       </Fragment>
     )
   }
