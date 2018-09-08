@@ -6,10 +6,6 @@ import { renderCustomComponent } from 'react-chat-widget';
 import CustomCard from './CustomCard'
 
 class ClickableBlockies extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   handleOnClick = () => {
     renderCustomComponent(CustomCard, {user: this.props.user, me: this.props.me})
   }

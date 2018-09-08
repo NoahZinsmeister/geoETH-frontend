@@ -1,16 +1,9 @@
 import React, { Component } from 'react'
 import socketIOClient from 'socket.io-client'
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-
 import { withWeb3 } from 'web3-webpacked-react';
 
 import { Widget, addResponseMessage, dropMessages, renderCustomComponent } from 'react-chat-widget';
 
-import CustomCard from './CustomCard'
-import BlockiesIdenticon from './BlockiesIdenticon'
-import TransactionButton from './TransactionButton'
 import ClickableBlockies from './ClickableBlockies'
 import 'react-chat-widget/lib/styles.css';
 

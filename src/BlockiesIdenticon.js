@@ -2,10 +2,6 @@ import React, { Component } from 'react'
 import blockies from 'blockies-identicon/blockies'
 
 class BlockiesIdenticon extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   getOpts () {
     console.log(this.props.seed)
     return {

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 
-import blockies from 'blockies-identicon/blockies'
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
@@ -15,10 +14,6 @@ const divMargin = {
 };
 
 class CustomCard extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     console.log(this.props.user)
     return (
