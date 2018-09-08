@@ -56,7 +56,7 @@ class JourneyPicker extends Component {
         center: [52.5200, 13.4050],
         caches: [
           {lat: 52.5169, lng: 13.4019, hint: 'I can see the whole city from here.'},
-          {lat: 52.5163, lng: 13.3777, hint: 'It pays to look where you\re going.'}
+          {lat: 52.5163, lng: 13.3777, hint: 'It pays to look where you\'re going.'}
         ]
       }
     ]
