@@ -83,7 +83,7 @@ class NewJourney extends Component {
             <TextField
               fullWidth
               id="name"
-              label="Name"
+              label="name"
               value={this.state.name}
               onChange={this.handleChange('name')}
               margin="normal"
