@@ -6,6 +6,7 @@ import { ListSubheader, List, ListItem, ListItemText, ListItemSecondaryAction } 
 import { Check as CheckIcon } from '@material-ui/icons';
 import GoogleMapReact from 'google-map-react'
 import Geolocation from 'react-geolocation';
+import { withWeb3 } from 'web3-webpacked-react';
 
 import Message from './Message';
 import Marker from './Marker'
@@ -26,10 +27,6 @@ const styles = theme => ({
   }
 })
 
-// 0x383209643DcfE48561456Ca4ad801BB1F1493191
-// lat: -90, 90
-// lng: -180, 180
-
 class Journey extends Component {
   constructor(props) {
     super(props)
@@ -39,8 +36,9 @@ class Journey extends Component {
       currentPosition: undefined,
       zoom: 11,
       pinnedCache: {},
-      currentSecrets: []
+      currentSecrets: [],
     }
+
   }
 
   addSecret = (id, secret) => {
@@ -202,10 +200,10 @@ class Journey extends Component {
           undefined
         }
 
-        <Message />
+        <Message user={this.props.w3w.account} journey={this.props.name}/>
       </Fragment>
     )
   }
 }
 
-export default withStyles(styles)(Journey)
+export default withStyles(styles)(withWeb3(Journey))
