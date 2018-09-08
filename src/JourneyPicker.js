@@ -7,6 +7,7 @@ import { Search as SearchIcon } from '@material-ui/icons';
 import { getFactoryContract, getJourneyContract } from './utilities'
 
 import Journey from './Journey'
+import NewJourney from './NewJourney'
 
 const styles = theme => ({
   title: {
@@ -184,8 +185,9 @@ class JourneyPicker extends Component {
             undefined :
             <Journey {...this.state.selectedJourney} />
            }
+           <NewJourney/>
+           
         </div>
-
       </Fragment>
     )
   }
