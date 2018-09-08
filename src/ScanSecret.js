@@ -20,6 +20,19 @@ class ScanSecret extends Component {
     open: false
   }
 
+  parseResult = result => {
+    if (result !== null) {
+      try {
+        // TODO this needs to check the smart contract for validity
+        const parsed = JSON.parse(result)
+        this.props.addSecret(Number(parsed.id), parsed.secret)
+        this.setState({open: false})
+      } catch (error) {
+        return
+      }
+    }
+  }
+
   render() {
     const { classes } = this.props
 
@@ -41,7 +54,7 @@ class ScanSecret extends Component {
               delay={200}
               style={{width: '50%', margin: '0 auto'}}
               onError={error => console.error(error)}
-              onScan={result => console.log(result)}
+              onScan={this.parseResult}
             />
           </DialogContent>
         </Dialog>
