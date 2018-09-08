@@ -40,9 +40,37 @@ class NewJourney extends Component {
           <ExpansionPanelDetails>
             <TextField
               id="name"
-              label="Name"
+              label="name"
               value={this.state.name}
               onChange={this.handleChange('name')}
+              margin="normal"
+            />
+            <TextField
+              id="description"
+              label="description"
+              value={this.state.description}
+              onChange={this.handleChange('description')}
+              margin="normal"
+            />
+            <TextField
+              id="salt"
+              label="salt"
+              value={this.state.salt}
+              onChange={this.handleChange('salt')}
+              margin="normal"
+            />
+            <TextField
+              id="secrets"
+              label="secrets"
+              value={this.state.secrets}
+              onChange={this.handleChange('secrets')}
+              margin="normal"
+            />
+            <TextField
+              id="hints"
+              label="hints"
+              value={this.state.hints}
+              onChange={this.handleChange('hints')}
               margin="normal"
             />
           </ExpansionPanelDetails>
