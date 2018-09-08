@@ -69,7 +69,7 @@ class JourneyPicker extends Component {
       caches:      parsedCaches,
       center:      [centerLat, centerLng],
       resolved:    details[5],
-      reward:      details[6],
+      reward:      this.props.w3w.toDecimal(details[6], 18),
       address:     address
     }
   }
@@ -88,27 +88,6 @@ class JourneyPicker extends Component {
           })
       })
       .catch(error => console.error(error))
-
-    // const journeys = [
-    //   {
-    //     name: 'NYC',
-    //     description: 'The best city on Earth',
-    //     center: [40.7128, -74.0060],
-    //     caches: [
-    //       {lat: 40.7484, lng: -73.9857, hint: 'Look up!'},
-    //       {lat: 40.6892, lng: -74.0445, hint: 'I heard that Lady Liberty is right-handed...'}
-    //     ]
-    //   },
-    //   {
-    //     name: 'San Francisco',
-    //     description: 'West coast best coast',
-    //     center: [37.7749, -122.4194],
-    //     caches: [
-    //       {lat: 37.8199, lng: -122.4783, hint: 'Don\'t fall off.'},
-    //       {lat: 37.7596, lng: -122.4269, hint: 'Are you getting a workout?'}
-    //     ]
-    //   }
-    // ]
   }
 
   filterBySearchText = (journeys, searchText) => {
@@ -151,8 +130,14 @@ class JourneyPicker extends Component {
         <Typography variant="display3" align="center" className={classes.title}>GeoETH</Typography>
 
         <div className={classes.searchContainer}>
+
+          <Typography variant="body1" align="left" className={classes.title}>
+            Welcome to GeoETH, motherfu**ers! Search for journeys below, find one to your liking, and start exploring.
+          </Typography>
+
           <TextField
             className={classes.search}
+            label="Search for a Journey"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -186,8 +171,8 @@ class JourneyPicker extends Component {
             undefined :
             <Journey {...this.state.selectedJourney} />
            }
-           <NewJourney/>
-           
+
+          <NewJourney/>
         </div>
       </Fragment>
     )

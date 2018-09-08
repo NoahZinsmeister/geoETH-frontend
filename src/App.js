@@ -6,7 +6,7 @@ import JourneyPicker from './JourneyPicker'
 class App extends Component {
   render() {
     return (
-      <Web3Provider supportedNetworks={[4]}>
+      <Web3Provider supportedNetworks={[1, 4]}>
         <NetworkUpdater>
           <AccountUpdater>
             <JourneyPicker />
