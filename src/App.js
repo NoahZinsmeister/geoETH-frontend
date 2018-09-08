@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Web3Provider, { NetworkUpdater, AccountUpdater } from 'web3-webpacked-react'
 
-import Body from './Body'
+import JourneyPicker from './JourneyPicker'
 
 class App extends Component {
   render() {
@@ -9,7 +9,7 @@ class App extends Component {
       <Web3Provider supportedNetworks={[1, 4]}>
         <NetworkUpdater>
           <AccountUpdater>
-            <Body />
+            <JourneyPicker />
           </AccountUpdater>
         </NetworkUpdater>
       </Web3Provider>
