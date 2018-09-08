@@ -1,24 +1,27 @@
 import React, { Component } from 'react'
 import socketIOClient from 'socket.io-client'
 
-import { Widget, addResponseMessage } from 'react-chat-widget';
+import { Widget, addResponseMessage, dropMessages } from 'react-chat-widget';
 
 import 'react-chat-widget/lib/styles.css';
 
 class Message extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      user: '0xMyEthAddress',
-      journey: 'EthBerlin!',
       messages: [],
       endpoint: "https://geoeth.herokuapp.com/"
     };
   }
 
   componentDidMount() {
-    const { endpoint, messages, journey, user } = this.state;
+    const { endpoint, messages } = this.state;
+    const journey = this.props.journey;
+    const user = this.props.user;
+
+    dropMessages()
+
     let newMessages = messages;
 
     addResponseMessage("Welcome to the " + journey + " chat!");
@@ -38,27 +41,21 @@ class Message extends Component {
   }
 
   handleNewUserMessage = (newMessage) => {
-    const { journey, user }= this.state;
-
-    console.log(`New message incoming! ${newMessage}`);
+    const journey = this.props.journey;
+    const user = this.props.user;
 
     this.socket.emit('chat message', {journey: journey, msg: newMessage, lat: 52, long: 13, user: user});
   }
 
-  sendMessage = () => {
-    this.socket.emit('chat message', {journey: 'EthBerlin!', msg: 'testing 2', lat: 52, long: 13, user: '0xMyEthAddress2'});
-  }
-
   render() {
-    const { journey } = this.state;
     return (
       <div style={{ textAlign: "center" }}>
         <Widget
+            key={this.props.journey}
             handleNewUserMessage={this.handleNewUserMessage}
-            title={journey}
+            title={this.props.journey}
             subtitle="Message Board"
           />
-        <button onClick={this.sendMessage}>click me</button>
       </div>
     );
   }
