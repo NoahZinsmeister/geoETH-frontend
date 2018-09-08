@@ -102,7 +102,7 @@ class Journey extends Component {
       <Fragment>
         <div className={classes.map}>
           <GoogleMapReact
-            bootstrapURLKeys={{ key: process.env.REACT_APP_MAP_KEY }}
+            bootstrapURLKeys={{ key: 'AIzaSyAEAN2ts0SFThbcb-5RN0VKZXb8AHZVu24' }}
             center={this.state.mapCenter}
             zoom={this.state.zoom}
           >

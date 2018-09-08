@@ -3,7 +3,6 @@ import blockies from 'blockies-identicon/blockies'
 
 class BlockiesIdenticon extends Component {
   getOpts () {
-    console.log(this.props.seed)
     return {
       seed: this.props.seed || "foo",
       color: '#ba3434',

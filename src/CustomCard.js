@@ -15,8 +15,6 @@ const divMargin = {
 
 class CustomCard extends Component {
   render() {
-    console.log(this.props.user)
-
     const sendValue = {
       send: () => { return this.props.w3w.web3js.eth.sendTransaction({from: this.props.me, to: this.props.user, value: 10000000000000000}) },
       estimateGas: async () => { return 21000 }
