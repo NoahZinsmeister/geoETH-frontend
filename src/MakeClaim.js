@@ -27,7 +27,6 @@ class MakeClaim extends Component {
 
     const secrets = this.props.secrets.map(secret => secret.secret)
     const claim = this.props.w3w.web3js.utils.soliditySha3(...secrets, this.props.w3w.account)
-    console.log(claim)
 
     return (
       <Fragment>
