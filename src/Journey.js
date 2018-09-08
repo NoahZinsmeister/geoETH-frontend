@@ -11,6 +11,7 @@ import { withWeb3 } from 'web3-webpacked-react';
 import Message from './Message';
 import Marker from './Marker'
 import LocationMarker from './LocationMarker'
+import ScanSecret from './ScanSecret'
 
 import dotenv from 'dotenv'
 dotenv.config()
@@ -39,8 +40,12 @@ class Journey extends Component {
 
   }
 
-  componentDidMount() {
-    this.setState({currentSecrets: [{id: 0, secret: 123}]})
+  addSecret = (id, secret) => {
+    if (!this.isFound(id)) {
+      this.setState(oldState => {
+        return {currentSecrets: oldState.currentSecrets.concat([{id: id, secret: secret}])}
+      })
+    }
   }
 
   reduceCache(cache) {
@@ -90,6 +95,8 @@ class Journey extends Component {
   render() {
     const { classes } = this.props
 
+    const remainingSecrets = this.props.caches.length - this.state.currentSecrets.length
+
     return (
       <Fragment>
         <div className={classes.map}>
@@ -123,7 +130,13 @@ class Journey extends Component {
           </GoogleMapReact>
         </div>
 
-        <List component="nav" subheader={<ListSubheader>Remaining Secrets</ListSubheader>}>
+        <ScanSecret addSecret={this.addSecret} />
+
+        <List component="nav" subheader={
+          <ListSubheader>
+            {`${remainingSecrets} Remaining Secret${remainingSecrets > 1 ? 's' : ''}`}
+          </ListSubheader>
+        }>
           {this.props.caches.map((cache, i) => {
             if (this.isFound(i)) {
               return undefined
@@ -150,33 +163,38 @@ class Journey extends Component {
           })}
         </List>
 
-        {this.state.currentSecrets.length > 0 ? <Divider /> : undefined}
+        {this.state.currentSecrets.length > 0 ?
+          <Fragment>
 
-        <List component="nav" subheader={<ListSubheader>Found Secrets</ListSubheader>}>
-          {this.props.caches.map((cache, i) => {
-            if (!this.isFound(i)) {
-              return undefined
-            }
+            <Divider />
+            <List component="nav" subheader={<ListSubheader>Found Secrets</ListSubheader>}>
+              {this.props.caches.map((cache, i) => {
+                if (!this.isFound(i)) {
+                  return undefined
+                }
 
-            return (
-              <ListItem
-                button
-                key={this.reduceCache(cache)}
-                onMouseEnter={() => this.handleCacheHover(cache)}
-                onMouseLeave={() => this.handleCacheHover()}
-              >
-                <ListItemText primary={`Cache ${i}`} secondary={cache.hint} />
-                <ListItemSecondaryAction>
-                  <IconButton disabled>
-                    <CheckIcon className={classes.found} />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </ListItem>
-            )
-          })}
-        </List>
+                return (
+                  <ListItem
+                    button
+                    key={this.reduceCache(cache)}
+                    onMouseEnter={() => this.handleCacheHover(cache)}
+                    onMouseLeave={() => this.handleCacheHover()}
+                  >
+                    <ListItemText primary={`Cache ${i}`} secondary={cache.hint} />
+                    <ListItemSecondaryAction>
+                      <IconButton disabled>
+                        <CheckIcon className={classes.found} />
+                      </IconButton>
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                )
+              })}
+            </List>
+          </Fragment> :
+          undefined
+        }
+
         <Message user={this.props.w3w.account} journey={this.props.name}/>
-
       </Fragment>
     )
   }
