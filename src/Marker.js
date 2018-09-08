@@ -11,12 +11,18 @@ const styles = theme => ({
     left: '50%',
     transform: 'translate(-50%, -50%)',
     zIndex: 9,
+    backgroundColor: 'rgba(0, 0, 0, .1)',
+    '&:hover': {
+      backgroundColor: 'rgba(0, 0, 0, .3)'
+    }
   },
   found: {
-    color: 'green'
+    color: 'green',
+    zIndex: 10
   },
   notFound: {
-    color: 'red'
+    color: 'red',
+    zIndex: 10
   }
 })
 
@@ -26,9 +32,11 @@ class Marker extends Component {
 
     if (found) {
       return (
-        <IconButton disabled className={classes.marker}>
-          <CheckIcon className={classes.found} />
-        </IconButton>
+        <Tooltip title={text}>
+          <IconButton className={classes.marker}>
+            <CheckIcon className={classes.found} />
+          </IconButton>
+        </Tooltip>
       )
     } else {
       return (

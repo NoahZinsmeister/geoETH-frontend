@@ -12,6 +12,10 @@ const styles = theme => ({
   paperFullScreen: {
     width: '75%',
     height: '75%'
+  },
+  marginTopBottom: {
+    marginTop: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 2
   }
 })
 
@@ -21,6 +25,7 @@ class ScanSecret extends Component {
   }
 
   parseResult = result => {
+    console.log(result)
     if (result !== null) {
       try {
         // TODO this needs to check the smart contract for validity
@@ -37,7 +42,7 @@ class ScanSecret extends Component {
     const { classes } = this.props
 
     return (
-      <div>
+      <div className={classes.marginTopBottom}>
         <Button variant="contained" onClick={() => this.setState({ open: true })}>
           <CameraIcon />
           Scan Secret
@@ -53,7 +58,7 @@ class ScanSecret extends Component {
             <QrReader
               delay={200}
               style={{width: '50%', margin: '0 auto'}}
-              onError={error => console.error(error)}
+              onError={error => { console.error(error) }}
               onScan={this.parseResult}
             />
           </DialogContent>

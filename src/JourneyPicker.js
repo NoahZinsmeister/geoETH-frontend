@@ -82,7 +82,8 @@ class JourneyPicker extends Component {
 
         Promise.all(details)
           .then(results => {
-            this.setState({allJourneys: results, currentJourneys: results})
+            const activeJourneys = results.filter(result => !result.resolved)
+            this.setState({allJourneys: activeJourneys, currentJourneys: activeJourneys})
           })
       })
       .catch(error => console.error(error))

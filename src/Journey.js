@@ -1,9 +1,5 @@
 import React, { Component, Fragment } from 'react'
 import { withStyles } from '@material-ui/core'
-import { IconButton } from '@material-ui/core'
-import { Checkbox, Divider } from '@material-ui/core'
-import { ListSubheader, List, ListItem, ListItemText, ListItemSecondaryAction } from '@material-ui/core'
-import { Check as CheckIcon } from '@material-ui/icons';
 import GoogleMapReact from 'google-map-react'
 import Geolocation from 'react-geolocation';
 import { withWeb3 } from 'web3-webpacked-react';
@@ -11,7 +7,8 @@ import { withWeb3 } from 'web3-webpacked-react';
 import Message from './Message';
 import Marker from './Marker'
 import LocationMarker from './LocationMarker'
-import ScanSecret from './ScanSecret'
+import CacheManager from './CacheManager'
+
 import MakeClaim from './MakeClaim'
 
 const styles = theme => ({
@@ -33,15 +30,23 @@ class Journey extends Component {
       currentPosition: undefined,
       zoom: 11,
       pinnedCache: {},
-      currentSecrets: [],
+      currentSecrets: []
     }
+  }
 
+  componentDidMount() {
+    const existingSecrets = localStorage.getItem(this.props.address)
+    if (existingSecrets !== null) {
+      this.setState({currentSecrets: JSON.parse(existingSecrets)})
+    }
   }
 
   addSecret = (id, secret) => {
     if (!this.isFound(id)) {
       this.setState(oldState => {
-        return {currentSecrets: oldState.currentSecrets.concat([{id: id, secret: secret}])}
+        const newSecrets = oldState.currentSecrets.concat([{id: id, secret: secret}])
+        localStorage.setItem(this.props.address, JSON.stringify(newSecrets))
+        return {currentSecrets: newSecrets}
       })
     }
   }
@@ -93,8 +98,6 @@ class Journey extends Component {
   render() {
     const { classes } = this.props
 
-    const remainingSecrets = this.props.caches.length - this.state.currentSecrets.length
-
     return (
       <Fragment>
         <div className={classes.map}>
@@ -128,73 +131,23 @@ class Journey extends Component {
           </GoogleMapReact>
         </div>
 
-        <ScanSecret addSecret={this.addSecret} />
-
-        <List component="nav" subheader={
-          <ListSubheader>
-            {`${remainingSecrets} Remaining Secret${remainingSecrets > 1 ? 's' : ''}`}
-          </ListSubheader>
-        }>
-          {this.props.caches.map((cache, i) => {
-            if (this.isFound(i)) {
-              return undefined
-            }
-
-            return (
-              <ListItem
-                button
-                key={this.reduceCache(cache)}
-                selected={this.reduceCache(this.state.pinnedCache) === this.reduceCache(cache)}
-                onClick={() => this.handleCacheSelect(cache)}
-                onMouseEnter={() => this.handleCacheHover(cache)}
-                onMouseLeave={() => this.handleCacheHover()}
-              >
-                <ListItemText primary={`Cache ${i}`} secondary={cache.hint} />
-                <ListItemSecondaryAction>
-                  <Checkbox
-                    checked={this.reduceCache(this.state.pinnedCache) === this.reduceCache(cache)}
-                    onClick={() => this.handleCacheSelect(cache)}
-                  />
-                </ListItemSecondaryAction>
-              </ListItem>
-            )
-          })}
-        </List>
-
-        {this.state.currentSecrets.length > 0 ?
-          <Fragment>
-
-            <Divider />
-            <List component="nav" subheader={<ListSubheader>Found Secrets</ListSubheader>}>
-              {this.props.caches.map((cache, i) => {
-                if (!this.isFound(i)) {
-                  return undefined
-                }
-
-                return (
-                  <ListItem
-                    button
-                    key={this.reduceCache(cache)}
-                    onMouseEnter={() => this.handleCacheHover(cache)}
-                    onMouseLeave={() => this.handleCacheHover()}
-                  >
-                    <ListItemText primary={`Cache ${i}`} secondary={cache.hint} />
-                    <ListItemSecondaryAction>
-                      <IconButton disabled>
-                        <CheckIcon className={classes.found} />
-                      </IconButton>
-                    </ListItemSecondaryAction>
-                  </ListItem>
-                )
-              })}
-            </List>
-          </Fragment> :
-          undefined
-        }
-
-        {remainingSecrets === 0 ?
-          <MakeClaim address={this.props.address} secrets={this.state.currentSecrets} /> :
-          undefined
+        {this.props.caches.length === this.state.currentSecrets.length ?
+          <MakeClaim
+            address={this.props.address}
+            secrets={this.state.currentSecrets}
+            reward={this.props.reward}
+          /> :
+          <CacheManager
+            key={JSON.stringify(this.state.currentSecrets)}
+            pinnedCache={this.state.pinnedCache}
+            addSecret={this.addSecret}
+            handleCacheHover={this.handleCacheHover}
+            isFound={this.isFound}
+            reduceCache={this.reduceCache}
+            handleCacheSelect={this.handleCacheSelect}
+            caches={this.props.caches}
+            secrets={this.state.currentSecrets}
+          />
         }
 
         <Message user={this.props.w3w.account} journey={this.props.name}/>

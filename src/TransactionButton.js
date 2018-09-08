@@ -36,6 +36,9 @@ const styles = theme => ({
     '&:hover': {
       backgroundColor: theme.palette.success.dark
     }
+  },
+  hidden: {
+    display: 'none'
   }
 })
 
@@ -115,13 +118,14 @@ class TransactionButton extends Component {
   }
 
   render() {
+    const { classes } = this.props
     return (
       <Button
         variant="contained"
         color="primary"
         disabled={this.state.buttonDisabled}
         onClick={this.sendTransaction}
-        className={this.props.classes[this.state.buttonState]}
+        className={this.props.hidden ? classes.hidden : classes[this.state.buttonState]}
         {...this.state.linkProps}
       >
         {this.state.buttonState === 'ready' ? this.props.buttonInitial : this.state.text}
@@ -131,6 +135,7 @@ class TransactionButton extends Component {
 }
 
 TransactionButton.propTypes = {
+  hidden:            PropTypes.bool,
   buttonInitial:     PropTypes.node.isRequired,
   buttonSuccess:     PropTypes.string,
   method:            PropTypes.object.isRequired,
@@ -142,6 +147,7 @@ TransactionButton.propTypes = {
 }
 
 TransactionButton.defaultProps = {
+  hidden:            false,
   buttonSuccess:     'Success!',
   onTransactionHash: () => {},
   onConfirmation:    () => {}

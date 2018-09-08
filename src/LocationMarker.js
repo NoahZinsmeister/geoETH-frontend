@@ -11,6 +11,10 @@ const styles = theme => ({
     transform: 'translate(-50%, -50%)',
     color: 'blue',
     zIndex: 10,
+    backgroundColor: 'rgba(0, 0, 0, .1)',
+    '&:hover': {
+      backgroundColor: 'rgba(0, 0, 0, .3)'
+    }
   }
 })
 
