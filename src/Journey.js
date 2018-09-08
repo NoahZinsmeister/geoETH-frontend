@@ -14,9 +14,6 @@ import LocationMarker from './LocationMarker'
 import ScanSecret from './ScanSecret'
 import MakeClaim from './MakeClaim'
 
-import dotenv from 'dotenv'
-dotenv.config()
-
 const styles = theme => ({
   map: {
     height: '50vh',
