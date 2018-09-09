@@ -12,6 +12,7 @@
     "qrcode": "^1.2.2",
     "react": "^16.5.0",
     "react-chat-widget": "^2.1.4-1",
+    "react-device-detect": "^1.5.9",
     "react-dom": "^16.5.0",
     "react-geolocation": "^1.0.4",
     "react-qr-reader": "^2.1.0",

@@ -5,6 +5,9 @@ import { CameraAlt as CameraIcon } from '@material-ui/icons'
 import { withStyles } from '@material-ui/core'
 import QrReader from 'react-qr-reader'
 
+import { isMobile } from 'react-device-detect';
+
+
 const styles = theme => ({
   qr: {
     width: '50%'
@@ -23,6 +26,8 @@ class ScanSecret extends Component {
   state = {
     open: false
   }
+
+  qrRef = React.createRef()
 
   parseResult = result => {
     console.log(result)
@@ -56,11 +61,26 @@ class ScanSecret extends Component {
         >
           <DialogContent>
             <QrReader
+              ref={this.qrRef}
               delay={200}
               style={{width: '50%', margin: '0 auto'}}
               onError={error => { console.error(error) }}
               onScan={this.parseResult}
+              legacyMode={isMobile}
             />
+            {isMobile ?
+              <div style={{textAlign: 'center'}}>
+                <Button
+                  style={{marginTop: 5}}
+                  variant='contained'
+                  color='primary'
+                  onClick={() => { this.qrRef.current.openImageDialog()}}
+                >
+                  Submit Secret
+                </Button>
+              </div> :
+              undefined
+            }
           </DialogContent>
         </Dialog>
       </div>

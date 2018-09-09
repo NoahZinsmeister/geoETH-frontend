@@ -1,8 +1,9 @@
 var QRCode = require('qrcode')
 
 const caches = [
-  {id: '0', secret: 1, address: '0xJourneyAddress'},
-  {id: '1', secret: 2, address: '0xJourneyAddress'}
+  {id: '0', secret: 74274937, address: '0xJourneyAddress'},
+  {id: '1', secret: 4739272, address: '0xJourneyAddress'},
+  {id: '2', secret: 57482729, address: '0xJourneyAddress'}
 ]
 
 caches.forEach(cache => {

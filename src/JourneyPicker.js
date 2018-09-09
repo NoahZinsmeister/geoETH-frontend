@@ -132,7 +132,7 @@ class JourneyPicker extends Component {
         <div className={classes.searchContainer}>
 
           <Typography variant="body1" align="left" className={classes.title}>
-            Welcome to GeoETH, motherfu**ers! Search for journeys below, find one to your liking, and start exploring.
+            Welcome to GeoETH! Search for journeys below, find one to your liking, and start exploring.
           </Typography>
 
           <TextField
