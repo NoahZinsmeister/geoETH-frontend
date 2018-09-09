@@ -2,7 +2,7 @@
 
 This is an [ETHBerlin](https://ethberlin.com/) Hackathon project!
 
-[Live Website](https://noahzinsmeister.github.io/geoETH-frontend/)
+[Live Website](https://geoeth.ethberl.in/)
 
 This is a decentralized [geocaching game](https://www.geocaching.com/play). Users can search for QR codes which store data which is registered in a smart contract.
 
@@ -25,7 +25,7 @@ The messaging on this app utilizes I backend which can be found [here](https://g
 
 The logic in the app allows for users who are participating in the same game to communicate with each other and help each other find the QR codes. Users have a unique logo deterministically generated for their name through Blockies. This logo is clickable and gives you more information about a person you are chatting with. It also allows you to tip that person should they be extra helpful to you!
 
-The messaging server is a Socket.io server running on Node.js. It handles multiple messaging channels (one for each game). The front end application also utilizes the Socket.io-client repo to subscribe to emitted events from the server. 
+The messaging server is a Socket.io server running on Node.js. It handles multiple messaging channels (one for each game). The front end application also utilizes the Socket.io-client repo to subscribe to emitted events from the server.
 
 ### React Front End
 
